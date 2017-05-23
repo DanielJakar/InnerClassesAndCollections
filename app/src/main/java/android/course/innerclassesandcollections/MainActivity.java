@@ -3,33 +3,42 @@ package android.course.innerclassesandcollections;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    FloatingActionButton fab;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(this);
+
+
+
+
 
         //1) init a house is easy:
         //House.Room...
-        House h = new House("Ehad Haam 8");
+
 
         //2) init a room from outside:
         //requires a special syntax
         //the syntax requires an instance of a house
         //in order to create a room.
 
-        House.Room room = h.new Room(10,8);
+
 
     }
 
@@ -38,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
+
+
     }
 
     @Override
@@ -52,8 +64,44 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+
+
+
         return super.onOptionsItemSelected(item);
     }
 
 
+    @Override
+    public void onClick(View v) {
+        House.Builder  b = new House.Builder();
+        House newHouse = b.addRoom(8,10).
+                addRoom(20,20).
+                addRoom(14,56).
+                addRoom(34,34).
+                setAddress("Derech Hamelech 1").
+                build();
+
+        Toast.makeText(this, newHouse.toString(), Toast.LENGTH_LONG).show();
+
+        class MyFirstListener implements View.OnClickListener{
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "First", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+        class MySecondListener implements View.OnClickListener{
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Second", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+        fab.setOnClickListener(new MyFirstListener());
+        toolbar.setOnClickListener(new MySecondListener());
+    }
 }
