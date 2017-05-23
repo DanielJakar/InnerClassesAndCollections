@@ -83,25 +83,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Toast.makeText(this, newHouse.toString(), Toast.LENGTH_LONG).show();
 
-        class MyFirstListener implements View.OnClickListener{
 
+
+        fab.setOnClickListener(new View.OnClickListener(){
+            private String s = "123";
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "First", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(MainActivity.this, this.getClass().getName(), Toast.LENGTH_SHORT).show();
             }
-        }
 
-        class MySecondListener implements View.OnClickListener{
 
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Second", Toast.LENGTH_SHORT).show();
+        });
 
-            }
-        }
-
-        fab.setOnClickListener(new MyFirstListener());
-        toolbar.setOnClickListener(new MySecondListener());
     }
 }
